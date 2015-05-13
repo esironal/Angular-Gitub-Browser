@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-lg-6">
+        <table class="table table-responsive">
+            <tr>
+                <th>Name</th>
+                <td>{{user.name}}</td>
+                <th>Login</th>
+                <td>{{user.login}}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{user.location}}</td>
+                <th>Email</th>
+                <td>{{user.email}}</td>
+            </tr>
+            <tr>
+                <th>Blog</th>
+                <td colspan="3"><a href="{{user.blog}}" target="_blank">{{user.blog}}</a></td>
+            </tr>
+            <tr>
+                <th>Github Url</th>
+                <td colspan="3"><a href="{{user.html_url}}" target="_blank">{{user.html_url}}</a></td>
+            </tr>
+            <tr>
+                <th>Following</th>
+                <td>{{user.following}}</td>
+                <th>Followers</th>
+                <td>{{user.followers}}</td>
+            </tr>
+            <tr>
+                <th>Repositories</th>
+                <td colspan="3"><a ng-click="viewRepositories(user.repos_url)">{{user.repos_url}}</a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-lg-6">
+        <img src="{{user.avatar_url}}" alt="{{user.name}}">
+    </div>
+</div>
+<div class="row" ng-show="repos">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3>Repositories</h3>
+            <table ng-show="repos" class="table table-bordered table-responsive">
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Issues</th>
+                    <th>Stars</th>
+                    <th>Date Create</th>
+                </tr>
+                <tr ng-repeat="repo in repos">
+                    <td>
+                        <a ng-click="fetchCollaborators(repo.contributors_url)">{{repo.name}}</a> <a
+                            href="{{repo.html_url}}" target="_blank"><span
+                            class="glyphicon glyphicon-new-window pull-right" aria-hidden="true"></span></a>
+                        <br/>
+                        <h6>{{repo.description}}</h6>
+                    </td>
+                    <td>{{repo.size}}</td>
+                    <td>{{repo.open_issues }}</td>
+                    <td>{{repo.stargazers_count }}</td>
+                    <td>{{repo.created_at | date:"mediumDate"}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-6" ng-show="collaborators">
+            <h3>Collaborators</h3>
+            <table class="table table-bordered table-responsive">
+                <tr>
+                    <th>User</th>
+                    <th>Link</th>
+                    <th>Contributions</th>
+                </tr>
+                <tr ng-repeat="user in collaborators">
+                    <td><a ng-click="navigateToUser(user.login)">{{user.login}}</td>
+                    <td><a href="{{user.html_url}}" target="_blank">{{user.html_url}}</a></td>
+                    <td>{{user.contributions}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
